@@ -9,8 +9,8 @@ import java.util.UUID;
  */
 public class Speisekarte {
 
-  private String id;
-  private String name;
+  private final String id;
+  private final String name;
 
   private List<Gericht> gerichte = new ArrayList<>();
   public Speisekarte(String name) {
@@ -30,7 +30,7 @@ public class Speisekarte {
     return this.name;
   }
 
-  public void addGericht(String name) {
+  public void addPizza(String name) {
      this.gerichte.add(new Pizza(name));
   }
 
