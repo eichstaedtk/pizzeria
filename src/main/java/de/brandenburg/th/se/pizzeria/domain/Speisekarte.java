@@ -13,4 +13,16 @@ public class Speisekarte {
     this.id = UUID.nameUUIDFromBytes(name.getBytes()).toString();
     this.name = name;
   }
+
+  public Speisekarte() {
+    this("Standard");
+  }
+
+  public String getId() {
+    return this.id;
+  }
+
+  public String getName() {
+    return this.name;
+  }
 }
