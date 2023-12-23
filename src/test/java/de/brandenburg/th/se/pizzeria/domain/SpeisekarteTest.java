@@ -1,5 +1,6 @@
 package de.brandenburg.th.se.pizzeria.domain;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Assertions;
@@ -17,5 +18,16 @@ public class SpeisekarteTest {
     assertNotNull(speisekarte);
     assertNotNull(speisekarte.getId());
     assertNotNull(speisekarte.getName());
+  }
+
+  @Test
+  void testAddGericht() {
+    Speisekarte speisekarte = new Speisekarte();
+
+    speisekarte.addGericht("PizzaSalami");
+
+    assertNotNull(speisekarte.getGerichte());
+
+    assertFalse(speisekarte.getGerichte().isEmpty());
   }
 }
