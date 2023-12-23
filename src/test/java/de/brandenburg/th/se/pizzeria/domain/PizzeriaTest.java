@@ -1,5 +1,7 @@
 package de.brandenburg.th.se.pizzeria.domain;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +15,14 @@ public class PizzeriaTest {
 
     Pizzeria pizzeria = new Pizzeria();
 
-    Assertions.assertNotNull(pizzeria);
+    assertNotNull(pizzeria);
+  }
 
+  @Test
+  void speisekarteErstellen() {
+    Pizzeria pizzeria = new Pizzeria();
+    pizzeria.erstelleSpeisekarte("Winterkarte 2023");
+
+    assertNotNull(pizzeria.getSpeisekarten());
   }
 }
