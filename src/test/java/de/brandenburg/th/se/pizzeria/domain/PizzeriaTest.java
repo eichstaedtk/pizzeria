@@ -2,8 +2,10 @@ package de.brandenburg.th.se.pizzeria.domain;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import de.brandenburg.th.se.pizzeria.application.MainViewWindow;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 /**
  * Created by konrad.eichstaedt@gmx.de on 22.12.23.
@@ -24,5 +26,11 @@ public class PizzeriaTest {
     pizzeria.erstelleSpeisekarte("Winterkarte 2023");
 
     assertNotNull(pizzeria.getSpeisekarten());
+  }
+
+  @Test
+  void testStartPizzeria() {
+    Pizzeria.mainViewWindow = Mockito.mock(MainViewWindow.class);
+    Pizzeria.main(new String[]{"Start"});
   }
 }
