@@ -3,6 +3,8 @@ package de.brandenburg.th.se.pizzeria.domain;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import de.brandenburg.th.se.pizzeria.domain.Pizza.Groesse;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -25,12 +27,18 @@ public class SpeisekarteTest {
 
     String pizzaSalami = "PizzaSalami";
 
-    speisekarte.addPizza(pizzaSalami);
+    speisekarte.addPizza(pizzaSalami, Groesse.MITTEL, 12.95);
 
     assertNotNull(speisekarte.getGerichte());
 
     assertFalse(speisekarte.getGerichte().isEmpty());
 
-    assertEquals(pizzaSalami,speisekarte.getGerichte().get(0).getName());
+    Pizza pizza = (Pizza) speisekarte.getGerichte().get(0);
+
+    assertEquals(pizzaSalami, pizza.getName());
+
+    assertEquals(Groesse.MITTEL, pizza.getGroesse());
+
+    assertEquals(12.95,pizza.getPreis());
   }
 }

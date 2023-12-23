@@ -1,5 +1,6 @@
 package de.brandenburg.th.se.pizzeria.domain;
 
+import de.brandenburg.th.se.pizzeria.domain.Pizza.Groesse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -30,8 +31,8 @@ public class Speisekarte {
     return this.name;
   }
 
-  public void addPizza(String name) {
-     this.gerichte.add(new Pizza(name));
+  public void addPizza(String name, Groesse groesse, double preis) {
+     this.gerichte.add(new Pizza(name,groesse,preis));
   }
 
   public List<Gericht> getGerichte() {
