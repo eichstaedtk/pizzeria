@@ -1,6 +1,7 @@
 package de.brandenburg.th.se.pizzeria.domain;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.mock;
 
 import de.brandenburg.th.se.pizzeria.application.MainViewWindow;
 import org.junit.jupiter.api.Assertions;
@@ -30,7 +31,7 @@ public class PizzeriaTest {
 
   @Test
   void testStartPizzeria() {
-    Pizzeria.mainViewWindow = Mockito.mock(MainViewWindow.class);
+    Pizzeria.mainViewWindow = mock(MainViewWindow.class);
     Pizzeria.main(new String[]{"Start"});
   }
 }

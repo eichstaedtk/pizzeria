@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 /**
  * Created by konrad.eichstaedt@gmx.de on 22.12.23.
  */
-public class Pizzeria {
+public class Pizzeria implements PizzeriaBoundary {
 
   private static final Logger logger = Logger.getLogger(Pizzeria.class.getName());
   private Set<Speisekarte> speisekarten = new HashSet<>();
