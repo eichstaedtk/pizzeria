@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,9 +27,12 @@ public class SpeisekarteView extends JPanel {
 
   private JButton buttonSpeisekarteerstellen;
 
+  private GridLayout gridLayout = new GridLayout(0,3);
+
   private PizzeriaBoundary pizzeriaBoundary = new Pizzeria();
 
   public SpeisekarteView() {
+    setLayout(gridLayout);
     addLabel();
     addTextFieldSpeisekartenname();
     addButtonSpeisekarteerstellen();
