@@ -20,6 +20,7 @@ public class Pizzeria implements PizzeriaBoundary {
   public void erstelleSpeisekarte(String name) {
       Speisekarte speisekarte = new Speisekarte(name);
       speisekarten.add(speisekarte);
+      logger.log(Level.INFO,"Speisekarte erstellt {0}",new Object[]{speisekarten.size()});
   }
   public Set<Speisekarte> getSpeisekarten() {
     return speisekarten;

@@ -3,6 +3,7 @@ package de.brandenburg.th.se.pizzeria.domain;
 import de.brandenburg.th.se.pizzeria.domain.Pizza.Groesse;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -37,5 +38,18 @@ public class Speisekarte {
 
   public List<Gericht> getGerichte() {
     return gerichte;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Speisekarte that = (Speisekarte) o;
+    return Objects.equals(id, that.id);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id);
   }
 }
