@@ -22,7 +22,7 @@ public class MainViewWindow extends JFrame{
         System.exit(0);
       }
     });
-    setLayout(new GridLayout(0,3));
+    setLayout(new GridLayout(0,2));
     addSpeisekarte();
     setVisible(true);
   }
