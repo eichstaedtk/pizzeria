@@ -1,5 +1,6 @@
 package de.brandenburg.th.se.pizzeria.application;
 
+import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
@@ -21,6 +22,7 @@ public class MainViewWindow extends JFrame{
         System.exit(0);
       }
     });
+    setLayout(new GridLayout(0,3));
     addSpeisekarte();
     setVisible(true);
   }
