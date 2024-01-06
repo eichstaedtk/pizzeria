@@ -1,0 +1,78 @@
+@startuml
+
+class de.brandenburg.th.se.pizzeria.application.MainViewWindow {
+	{field} {static} +PIZZERIA_SOFTWARE_TITLE : String
+	{method} -addSpeisekarte () : void
+	{method}  {static} +main ( paramString;1 : [Ljava.lang.String; ) : void
+	{method} +openWindow ( paramint1 : int , paramint2 : int ) : void
+}
+
+
+class de.brandenburg.th.se.pizzeria.application.SpeisekarteView {
+	{field} {static} +SPEISEKARTE_ERSTELLEN_COMMAND : String
+	{field} -buttonSpeisekarteerstellen : javax.swing.JButton
+	{field} -labelSpeisekartenName : javax.swing.JLabel
+	{field} -labelSpeisekartenResult : javax.swing.JLabel
+	{field} -logger : java.util.logging.Logger
+	{field} -speisekarten : javax.swing.JTable
+	{field} -speisekartenModel : javax.swing.table.DefaultTableModel
+	{field} -textFieldSpeisekartenName : javax.swing.JTextField
+	{method} -addButtonSpeisekarteerstellen () : void
+	{method} -addLabelSpeisekartenname () : void
+	{method} -addSpeisekartenTabelle () : void
+	{method} -addTextFieldSpeisekartenname () : void
+	{method} -speisekarteErstellenHandler ( paramActionEvent1 : java.awt.event.ActionEvent ) : void
+}
+
+
+abstract class de.brandenburg.th.se.pizzeria.domain.Gericht {
+	{field} ~id : String
+	{field} ~name : String
+	{field} ~preis : double
+}
+
+
+class de.brandenburg.th.se.pizzeria.domain.Pizza {
+}
+
+
+enum de.brandenburg.th.se.pizzeria.domain.Pizza$Groesse {
+	{field} +GROSS
+	{field} +KLEIN
+	{field} +MITTEL
+}
+
+
+class de.brandenburg.th.se.pizzeria.domain.Pizzeria {
+	{field} {static} -logger : java.util.logging.Logger
+	{method} +erstelleSpeisekarte ( paramString1 : String ) : void
+}
+
+
+interface de.brandenburg.th.se.pizzeria.domain.PizzeriaBoundary {
+	{method}  {abstract} +erstelleSpeisekarte ( paramString1 : String ) : void
+	{method}  {abstract} +getSpeisekarten () : java.util.Set
+}
+
+
+class de.brandenburg.th.se.pizzeria.domain.Speisekarte {
+	{field} -erstellDatum : java.time.LocalDateTime
+	{field} -id : String
+	{field} -name : String
+	{method} +addPizza ( paramString1 : String , paramPizza$Groesse2 : de.brandenburg.th.se.pizzeria.domain.Pizza$Groesse , paramdouble3 : double ) : void
+	{method} +equals ( paramObject1 : Object ) : boolean
+	{method} +hashCode () : int
+}
+
+
+
+
+de.brandenburg.th.se.pizzeria.application.SpeisekarteView -->  de.brandenburg.th.se.pizzeria.domain.PizzeriaBoundary : pizzeriaBoundary
+de.brandenburg.th.se.pizzeria.domain.Pizza -->  de.brandenburg.th.se.pizzeria.domain.Pizza$Groesse : groesse
+de.brandenburg.th.se.pizzeria.domain.Pizza --|>  de.brandenburg.th.se.pizzeria.domain.Gericht
+de.brandenburg.th.se.pizzeria.domain.Pizzeria "1" o-- "0..*"  de.brandenburg.th.se.pizzeria.domain.Speisekarte : speisekarten
+de.brandenburg.th.se.pizzeria.domain.Pizzeria ..|>  de.brandenburg.th.se.pizzeria.domain.PizzeriaBoundary
+de.brandenburg.th.se.pizzeria.domain.Speisekarte "1" o-- "0..*"  de.brandenburg.th.se.pizzeria.domain.Gericht : gerichte
+
+
+@enduml

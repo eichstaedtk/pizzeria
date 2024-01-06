@@ -1,8 +1,6 @@
 package de.brandenburg.th.se.pizzeria.domain;
 
-import de.brandenburg.th.se.pizzeria.application.MainViewWindow;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;

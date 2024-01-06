@@ -1,0 +1,12 @@
+[plantuml,softwarearchitect-sequencediagramm.txt.png,png]
+----
+@startuml
+
+participant Pizzeria
+
+activate Pizzeria
+deactivate Pizzeria
+
+@enduml
+
+----

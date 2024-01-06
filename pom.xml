@@ -14,6 +14,48 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>plantuml-generator-maven-plugin</artifactId>
+        <groupId>de.elnarion.maven</groupId>
+        <version>2.3.0</version>
+        <executions>
+          <execution>
+            <id>generate-simple-classdiagram</id>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <phase>generate-test-sources</phase>
+            <configuration>
+              <outputFilename>softwarearchitect-classdiagramm.txt</outputFilename>
+              <outputDirectory>${project.basedir}/docs/uml</outputDirectory>
+              <scanPackages>
+                <scanPackage>
+                  de.brandenburg.th.se.pizzeria
+                </scanPackage>
+              </scanPackages>
+            </configuration>
+          </execution>
+          <execution>
+            <id>generate-simple-sequencediagram</id>
+            <goals>
+              <goal>generateSequenceDiagram</goal>
+            </goals>
+            <phase>generate-test-sources</phase>
+            <configuration>
+              <outputFilename>softwarearchitect-sequencediagramm.txt</outputFilename>
+              <outputDirectory>${project.basedir}/docs/uml</outputDirectory>
+              <startClass>de.brandenburg.th.se.pizzeria.domain.Pizzeria</startClass>
+              <startMethod>erstelleSpeisekarte</startMethod>
+              <enableAsciidocWrapper>true</enableAsciidocWrapper>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
   <dependencies>
     <!-- Andere Abhängigkeiten ... -->
     <dependency>
