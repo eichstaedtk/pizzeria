@@ -4,6 +4,7 @@ import de.brandenburg.th.se.pizzeria.domain.Pizzeria;
 import de.brandenburg.th.se.pizzeria.domain.PizzeriaBoundary;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.time.format.DateTimeFormatter;
@@ -25,16 +26,12 @@ public class SpeisekarteView extends JPanel {
 
   private JButton buttonSpeisekarteerstellen;
 
-  private GridLayout gridLayout = new GridLayout(0,3);
-
-  private String[][] speisekartenTabelData = new String[][]{};
-
+  private DefaultTableModel speisekartenModel = new DefaultTableModel();
   private JTable speisekarten;
 
   private PizzeriaBoundary pizzeriaBoundary = new Pizzeria();
 
   public SpeisekarteView() {
-    //setLayout(gridLayout);
     addLabelSpeisekartenname();
     addTextFieldSpeisekartenname();
     addButtonSpeisekarteerstellen();
@@ -54,32 +51,38 @@ public class SpeisekarteView extends JPanel {
 
   private void addButtonSpeisekarteerstellen() {
     buttonSpeisekarteerstellen = new JButton("Speisekarte erstellen");
+    labelSpeisekartenResult = new JLabel("");
     buttonSpeisekarteerstellen.setActionCommand(SPEISEKARTE_ERSTELLEN_COMMAND);
     buttonSpeisekarteerstellen.addActionListener(action -> speisekarteErstellenHandler(action));
     add(buttonSpeisekarteerstellen);
+    add(labelSpeisekartenResult);
   }
 
   private void addSpeisekartenTabelle() {
-    String[] columnNames = { "ID", "Name", "Erstelldatum" };
-    speisekarten = new JTable(speisekartenTabelData,columnNames);
+    speisekartenModel.addColumn("ID");
+    speisekartenModel.addColumn("Name");
+    speisekartenModel.addColumn("ErstellDatum");
+    speisekarten = new JTable(speisekartenModel);
     speisekarten.setVisible(true);
-    add(speisekarten);
+    speisekarten.setBounds(0,0,500,300);
+    JScrollPane jScrollPane = new JScrollPane(speisekarten);
+    add(jScrollPane);
   }
 
   private void speisekarteErstellenHandler(ActionEvent action) {
     logger.log(Level.INFO,"Get Action Button Event {0}",new Object[]{action});
     if(action.getActionCommand().equals(SPEISEKARTE_ERSTELLEN_COMMAND) && !textFieldSpeisekartenName.getText().isBlank()) {
       pizzeriaBoundary.erstelleSpeisekarte(textFieldSpeisekartenName.getText());
-      labelSpeisekartenResult = new JLabel("Speisekarte erfolgreich erstellt");
-      speisekartenTabelData = pizzeriaBoundary.getSpeisekarten().stream().map(sk -> new String[]{sk.getId(),sk.getName(),
-              DateTimeFormatter.ISO_DATE_TIME.format(sk.getErstellDatum())}).toArray(String[][]::new);
+      labelSpeisekartenResult.setText("Speisekarte erfolgreich erstellt");
+      speisekartenModel.setRowCount(0);
+      pizzeriaBoundary.getSpeisekarten().forEach(sk ->
+              speisekartenModel.insertRow(speisekartenModel.getRowCount(),new String[]{sk.getId(), sk.getName(),
+                      DateTimeFormatter.ofPattern("dd.MM.yyyy hh:mm:ss").format(sk.getErstellDatum())}));
       speisekarten.repaint();
     } else {
-      labelSpeisekartenResult = new JLabel("Speisekarte nicht erfolgreich erstellt");
+      labelSpeisekartenResult.setText("Speisekarte nicht erfolgreich erstellt");
     }
     textFieldSpeisekartenName.setText("");
-    add(labelSpeisekartenResult);
-    logger.log(Level.INFO,"Speisekarten number of {0}", speisekartenTabelData.length);
     updateUI();
   }
 }
