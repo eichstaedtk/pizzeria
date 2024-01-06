@@ -28,10 +28,4 @@ public class PizzeriaTest {
 
     assertNotNull(pizzeria.getSpeisekarten());
   }
-
-  @Test
-  void testStartPizzeria() {
-    Pizzeria.mainViewWindow = mock(MainViewWindow.class);
-    Pizzeria.main(new String[]{"Start"});
-  }
 }

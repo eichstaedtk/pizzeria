@@ -1,6 +1,8 @@
 package de.brandenburg.th.se.pizzeria.domain;
 
 import de.brandenburg.th.se.pizzeria.domain.Pizza.Groesse;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -13,10 +15,12 @@ public class Speisekarte {
 
   private final String id;
   private final String name;
+  private final LocalDateTime erstellDatum;
 
   private List<Gericht> gerichte = new ArrayList<>();
   public Speisekarte(String name) {
     this.id = UUID.nameUUIDFromBytes(name.getBytes()).toString();
+    this.erstellDatum = LocalDateTime.now();
     this.name = name;
   }
 
@@ -30,6 +34,10 @@ public class Speisekarte {
 
   public String getName() {
     return this.name;
+  }
+
+  public LocalDateTime getErstellDatum() {
+    return erstellDatum;
   }
 
   public void addPizza(String name, Groesse groesse, double preis) {

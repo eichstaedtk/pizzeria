@@ -3,12 +3,10 @@ package de.brandenburg.th.se.pizzeria.application;
 import de.brandenburg.th.se.pizzeria.domain.Pizzeria;
 import de.brandenburg.th.se.pizzeria.domain.PizzeriaBoundary;
 
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,17 +27,22 @@ public class SpeisekarteView extends JPanel {
 
   private GridLayout gridLayout = new GridLayout(0,3);
 
+  private String[][] speisekartenTabelData = new String[][]{};
+
+  private JTable speisekarten;
+
   private PizzeriaBoundary pizzeriaBoundary = new Pizzeria();
 
   public SpeisekarteView() {
-    setLayout(gridLayout);
-    addLabel();
+    //setLayout(gridLayout);
+    addLabelSpeisekartenname();
     addTextFieldSpeisekartenname();
     addButtonSpeisekarteerstellen();
+    addSpeisekartenTabelle();
     setVisible(true);
   }
 
-  private void addLabel(){
+  private void addLabelSpeisekartenname(){
     labelSpeisekartenName = new JLabel("Geben Sie eine Namen für die Speisekarte an:");
     add(labelSpeisekartenName);
   }
@@ -52,10 +55,15 @@ public class SpeisekarteView extends JPanel {
   private void addButtonSpeisekarteerstellen() {
     buttonSpeisekarteerstellen = new JButton("Speisekarte erstellen");
     buttonSpeisekarteerstellen.setActionCommand(SPEISEKARTE_ERSTELLEN_COMMAND);
-    buttonSpeisekarteerstellen.addActionListener(action -> {
-      speisekarteErstellenHandler(action);
-    });
+    buttonSpeisekarteerstellen.addActionListener(action -> speisekarteErstellenHandler(action));
     add(buttonSpeisekarteerstellen);
+  }
+
+  private void addSpeisekartenTabelle() {
+    String[] columnNames = { "ID", "Name", "Erstelldatum" };
+    speisekarten = new JTable(speisekartenTabelData,columnNames);
+    speisekarten.setVisible(true);
+    add(speisekarten);
   }
 
   private void speisekarteErstellenHandler(ActionEvent action) {
@@ -63,11 +71,15 @@ public class SpeisekarteView extends JPanel {
     if(action.getActionCommand().equals(SPEISEKARTE_ERSTELLEN_COMMAND) && !textFieldSpeisekartenName.getText().isBlank()) {
       pizzeriaBoundary.erstelleSpeisekarte(textFieldSpeisekartenName.getText());
       labelSpeisekartenResult = new JLabel("Speisekarte erfolgreich erstellt");
+      speisekartenTabelData = pizzeriaBoundary.getSpeisekarten().stream().map(sk -> new String[]{sk.getId(),sk.getName(),
+              DateTimeFormatter.ISO_DATE_TIME.format(sk.getErstellDatum())}).toArray(String[][]::new);
+      speisekarten.repaint();
     } else {
       labelSpeisekartenResult = new JLabel("Speisekarte nicht erfolgreich erstellt");
     }
     textFieldSpeisekartenName.setText("");
     add(labelSpeisekartenResult);
+    logger.log(Level.INFO,"Speisekarten number of {0}", speisekartenTabelData.length);
     updateUI();
   }
 }

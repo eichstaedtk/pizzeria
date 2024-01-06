@@ -3,6 +3,7 @@ package de.brandenburg.th.se.pizzeria.application;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.logging.Level;
 import javax.swing.JFrame;
 
 /**
@@ -29,5 +30,10 @@ public class MainViewWindow extends JFrame{
   private void addSpeisekarte() {
     SpeisekarteView speisekarteView = new SpeisekarteView();
     add(speisekarteView);
+  }
+
+  public static void main(String args[]) {
+    MainViewWindow mainViewWindow = new MainViewWindow();
+    mainViewWindow.openWindow(1024,768);
   }
   }
